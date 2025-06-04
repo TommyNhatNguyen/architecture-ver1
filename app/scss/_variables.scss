@@ -1,0 +1,36 @@
+:root {
+  --max-width-page: 1440px;
+  --max-height-page: 976px;
+  --max-width-container: calc(1340px - var(--pd-container) * 2);
+  --pd-container: 50px;
+  --gutter: 20px;
+  --header-height: 100px;
+  --padding-section: 40px;
+  --bg-color: #f9f6ec;
+  --text-color: #000000;
+  --white-color: #ffffff;
+  --emphasize-color: #cbcbbf;
+  --emphasize-color-2: #535F50;
+  --ff-ml: "ml";
+  --ff-mb: "mb";
+  --ff-mm: "mm";
+  --ff-mr: "mr";
+  --ff-msb: "msb";
+  --ff-nsb: "nsb";
+  --ff-nsm: "nsm";
+  --ff-nssb: "nssb";
+  --ff-nsr: "nsr";
+
+  /* Typography Scale */
+  --fs-emphasize: calc(var(--fs-h1) * 3);
+  --fs-h1: 7.8rem; /* Main heading */
+  --fs-h2: 5.2rem; /* Secondary heading (2/3 of h1) */
+  --fs-h3: 3.9rem; /* Tertiary heading (1/2 of h1) */
+  --fs-h4: 2.6rem; /* Fourth level heading (1/3 of h1) */
+  --fs-h5: 2rem; /* Fifth level heading (1.25x body) */
+  --fs-h6: 1.8rem; /* Sixth level heading (1.125x body) */
+  --fs-subtitle: 2.4rem; /* Subtitle text (1.5x body) */
+  --fs-body: 1.6rem; /* Body text */
+  --fs-small: 1.4rem; /* Small text (0.875x body) */
+  --fs-xs: 1.2rem; /* Extra small text (0.75x body) */
+}

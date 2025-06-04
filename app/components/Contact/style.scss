@@ -1,0 +1,26 @@
+.sccontact {
+  .sccontact-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gutter);
+    padding-top: calc(var(--padding-section) * 2);
+    padding-bottom: calc(var(--padding-section) * 2);
+    border-top: 1px solid var(--emphasize-color);
+    border-bottom: 1px solid var(--emphasize-color);
+  }
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gutter);
+    width: 100%;
+    font-family: var(--ff-mm);
+    &-title {
+      font-size: var(--fs-h3);
+    }
+    .btn-link {
+      font-size: var(--fs-h4);
+    }
+  }
+}
