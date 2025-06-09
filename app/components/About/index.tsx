@@ -1,10 +1,61 @@
-import React from "react";
+'use client'
+import React, { useRef } from "react";
 import "./style.scss";
+import AnimateImage from "../AnimateImage";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
 type Props = {};
 
 const About = (props: Props) => {
+  const aboutRef = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      const left = document.querySelector(".scabout__left");
+      const right = document.querySelector(".scabout__right");
+      left?.childNodes.forEach((child) => {
+        const splitText = SplitText.create(child as HTMLElement);
+        gsap.set(splitText.lines, {
+          overflow: "hidden",
+          height: "fit-content",
+        });
+        gsap.from(splitText.chars, {
+          scrollTrigger: {
+            trigger: child as HTMLElement,
+            start: "bottom bottom",
+            end: "bottom bottom",
+          },
+          y: "100%",
+          opacity: 0,
+          ease: "power3.out",
+          duration: 1.5,
+        });
+      });
+      right?.childNodes.forEach((child) => {
+        const splitText = SplitText.create(child as HTMLElement);
+        gsap.set(splitText.lines, {
+          overflow: "hidden",
+          height: "fit-content",
+        });
+        gsap.from(splitText.chars, {
+          scrollTrigger: {
+            trigger: child as HTMLElement,
+            start: "bottom bottom",
+            end: "bottom bottom",
+          },
+          y: "100%",
+          opacity: 0,
+          ease: "power3.out",
+          duration: 1.5,
+        });
+      });
+    },
+    {
+      scope: aboutRef,
+    }
+  );
   return (
-    <section id="scabout" className="scabout --ptb">
+    <section id="scabout" className="scabout --ptb" ref={aboutRef}>
       <div className="container">
         <div className="scabout-wrapper">
           <div className="scabout__left">
@@ -15,9 +66,9 @@ const About = (props: Props) => {
               tempora ex hic ad suscipit, tenetur quos obcaecati est iste sunt
               aperiam, dicta totam.
             </p>
-            <div className="scabout__left-thumbnail">
+            <AnimateImage className="scabout__left-thumbnail">
               <img src="/images/founder-1.jpg" alt="About" />
-            </div>
+            </AnimateImage>
           </div>
           <div className="scabout__right">
             <p className="scabout__right-para">
@@ -26,9 +77,9 @@ const About = (props: Props) => {
               cupiditate itaque laboriosam, sit libero alias facere! Quisquam
               nostrum iste dolorum quidem.
             </p>
-            <div className="scabout__right-thumbnail">
+            <AnimateImage className="scabout__right-thumbnail">
               <img src="/images/founder-2.jpeg" alt="About" />
-            </div>
+            </AnimateImage>
           </div>
         </div>
       </div>

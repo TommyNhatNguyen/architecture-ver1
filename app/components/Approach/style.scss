@@ -57,9 +57,11 @@
         color: var(--emphasize-color);
         font-style: italic;
         line-height: 1;
+        flex: 1;
       }
       .content {
         max-width: 40%;
+        flex: 1;
         &__title {
           font-size: var(--fs-h4);
           font-family: var(--ff-mm);

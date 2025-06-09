@@ -1,18 +1,132 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./style.scss";
+import Loader from "../Loader";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
 
 type Props = {};
 
 const Hero = (props: Props) => {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLAnchorElement>(null);
+
+  const [tl, setTl] = useState<gsap.core.Timeline>();
+  useGSAP(
+    () => {
+      // Set timeline
+      const tl = gsap.timeline({});
+      setTl(tl);
+      // Logo
+      const logoSplit = SplitText.create(logoRef.current);
+      const loaderRef = document.querySelector(".loader");
+      tl.from(logoSplit.lines, {
+        y: "100%",
+        opacity: 0,
+        ease: "power3.out",
+        duration: 1.5,
+        onStart: () => {
+          document.body.classList.add("--loading");
+        },
+      });
+      tl.from(logoRef.current, {
+        top: `${(window.innerHeight - 120) / 2}px`,
+        left: "50%",
+        x: "-50%",
+        overflow: "hidden",
+        ease: "power4.inOut",
+        duration: 1.5,
+      });
+      tl.to(
+        loaderRef,
+        {
+          opacity: 0,
+          onComplete: () => {
+            document.body.classList.remove("--loading");
+          },
+        },
+        "-=0.6"
+      ).from(
+        logoRef.current,
+        {
+          color: `var(--text-color)`,
+        },
+        "<+0.1"
+      );
+      // Top
+      const nav = gsap.utils.toArray(".nav .nav__item") as HTMLDivElement[];
+      const contact = document.querySelector(".schero__nav-contact");
+      [...nav, contact].forEach((item) => {
+        const splitText = SplitText.create(item);
+        tl.from(
+          item,
+          {
+            overflow: "hidden",
+            height: "fit-content",
+          },
+          "<"
+        );
+        tl.from(
+          splitText.lines,
+          {
+            y: "100%",
+            opacity: 0,
+            ease: "power3.out",
+            duration: 1.5,
+          },
+          "<"
+        );
+      });
+      // Bottom
+      const bottomLeft = document.querySelector(".schero__bottom-left");
+      const bottomMiddle = document.querySelector(".schero__bottom-middle");
+      const bottomRight = document.querySelector(".schero__bottom-right");
+      [bottomLeft, bottomMiddle].forEach((item) => {
+        const split = SplitText.create(item);
+        tl.from(
+          split.lines,
+          {
+            overflow: "hidden",
+          },
+          "<"
+        );
+        tl.from(
+          split.words,
+          {
+            y: "100%",
+            opacity: 0,
+            ease: "power3.out",
+            duration: 1.5,
+          },
+          "<"
+        );
+      });
+      tl.from(
+        bottomRight,
+        {
+          y: 20,
+          opacity: 0,
+          ease: "power3.out",
+          duration: 1.5,
+        },
+        "<"
+      );
+    },
+    {
+      scope: heroRef,
+    }
+  );
   return (
-    <section id="schero" className="schero">
+    <section id="schero" className="schero" ref={heroRef}>
       <div className="container-fluid">
         <div className="schero-wrapper">
           {/* Nav */}
           <nav className="schero__nav">
+            <Loader />
             {/* Logo */}
-            <Link href="#" className="schero__nav-logo">
+            <Link ref={logoRef} href="#" className="schero__nav-logo">
               Rumaé
             </Link>
             {/* Nav */}

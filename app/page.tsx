@@ -3,17 +3,18 @@ import Approach from "@/components/Approach";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import MainLayout from "./layout/MainLayout";
 
 export default function Home() {
   return (
-    <div className="page-wrapper">
-      <main id="main" className="main">
+    <>
+      <MainLayout>
         <Hero />
         <Approach />
         <About />
         <Contact />
-      </main>
+      </MainLayout>
       <Footer />
-    </div>
+    </>
   );
 }

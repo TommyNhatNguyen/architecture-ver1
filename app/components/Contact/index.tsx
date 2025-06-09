@@ -1,11 +1,42 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
 import "./style.scss";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
 type Props = {};
 
 const Contact = (props: Props) => {
+  const contactRef = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      const content = document.querySelector(".sccontact__content");
+      content?.childNodes.forEach((child) => {
+        const splitText = SplitText.create(child as HTMLElement);
+        gsap.set(splitText.lines, {
+          overflow: "hidden",
+          height: "fit-content",
+        });
+        gsap.from(splitText.chars, {
+          scrollTrigger: {
+            trigger: child as HTMLElement,
+            start: "bottom bottom",
+            end: "bottom bottom",
+          },
+          y: "100%",
+          opacity: 0,
+          ease: "power3.out",
+          duration: 1.5,
+        });
+      });
+    },
+    {
+      scope: contactRef,
+    }
+  );
   return (
-    <section id="sccontact" className="sccontact --ptb">
+    <section id="sccontact" className="sccontact --ptb" ref={contactRef}>
       <div className="container">
         <div className="sccontact-wrapper">
           <div className="sccontact__content">

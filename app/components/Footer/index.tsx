@@ -1,11 +1,50 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
 import "./style.scss";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
 type Props = {};
 
 const Footer = (props: Props) => {
+  const footerRef = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      const left = document.querySelector(".footer__top-left");
+      const leftTitle = left?.querySelector(".title");
+      const right = document.querySelector(".footer__top-right");
+      const sitemapItems = right?.querySelectorAll(".sitemap__item");
+      const contactLabel = right?.querySelectorAll(".contact__group-label");
+      const contactInfo = right?.querySelectorAll(".contact__group-info");
+      const bottom = document.querySelector(".footer__bottom");
+      [leftTitle, sitemapItems, contactLabel, contactInfo, bottom].forEach(
+        (child) => {
+          const splitText = SplitText.create(child as HTMLElement);
+          gsap.set(splitText.lines, {
+            overflow: "hidden",
+            height: "fit-content",
+          });
+          gsap.from(splitText.chars, {
+            scrollTrigger: {
+              trigger: child as HTMLElement,
+              start: "bottom bottom",
+              end: "bottom bottom",
+            },
+            y: "100%",
+            opacity: 0,
+            ease: "power3.out",
+            duration: 1.5,
+          });
+        }
+      );
+    },
+    {
+      scope: footerRef,
+    }
+  );
   return (
-    <footer id="footer" className="footer --ptb">
+    <footer id="footer" className="footer --ptb" ref={footerRef}>
       <div className="container">
         <div className="footer-wrapper">
           <div className="footer__top">
