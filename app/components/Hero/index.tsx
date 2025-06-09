@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.scss";
 import Loader from "../Loader";
 import { useGSAP } from "@gsap/react";
@@ -12,23 +12,11 @@ type Props = {};
 const Hero = (props: Props) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLAnchorElement>(null);
-
-  const [tl, setTl] = useState<gsap.core.Timeline>();
+  
   useGSAP(
     () => {
       // Set timeline
-      const tl = gsap.timeline({
-        paused: true
-      });
-      setTl(tl);
-      const checkLoading = () => {
-        if (!document.body.classList.contains("--loading")) {
-          tl.play();
-        } else {
-          gsap.delayedCall(0, checkLoading);
-        }
-      };
-      checkLoading();
+      const tl = gsap.timeline({});
       // Logo
       const logoSplit = SplitText.create(logoRef.current);
       const loaderRef = document.querySelector(".loader");

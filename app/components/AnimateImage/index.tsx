@@ -1,6 +1,5 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
 import React, { useRef } from "react";
 
 type Props = {
@@ -11,7 +10,6 @@ type Props = {
 const AnimateImage = ({ children, className }: Props) => {
   const imageRef = useRef<HTMLDivElement>(null);
   useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
     gsap.from(imageRef.current, {
       scrollTrigger: {
         trigger: imageRef.current,

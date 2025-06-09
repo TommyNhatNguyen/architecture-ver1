@@ -9,15 +9,15 @@ type Props = {
 };
 
 const MainLayout = ({ children }: Props) => {
+  gsap.registerPlugin(SplitText);
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollSmoother);
   const pageRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   useGSAP(
     () => {
-      gsap.registerPlugin(SplitText);
-      gsap.registerPlugin(ScrollTrigger);
-      gsap.registerPlugin(ScrollSmoother);
       ScrollSmoother.create({
         smooth: 1,
         effects: true,
