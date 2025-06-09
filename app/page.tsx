@@ -13,8 +13,8 @@ export default function Home() {
         <Approach />
         <About />
         <Contact />
+        <Footer />
       </MainLayout>
-      <Footer />
     </>
   );
 }

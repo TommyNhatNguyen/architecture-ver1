@@ -17,8 +17,18 @@ const Hero = (props: Props) => {
   useGSAP(
     () => {
       // Set timeline
-      const tl = gsap.timeline({});
+      const tl = gsap.timeline({
+        paused: true
+      });
       setTl(tl);
+      const checkLoading = () => {
+        if (!document.body.classList.contains("--loading")) {
+          tl.play();
+        } else {
+          gsap.delayedCall(0, checkLoading);
+        }
+      };
+      checkLoading();
       // Logo
       const logoSplit = SplitText.create(logoRef.current);
       const loaderRef = document.querySelector(".loader");
