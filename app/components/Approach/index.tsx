@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.scss";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -9,19 +9,54 @@ type Props = {};
 
 const Approach = (props: Props) => {
   const approachRef = useRef<HTMLDivElement>(null);
+  const [splitText, setSplitText] = useState<SplitText[]>([]);
+  useEffect(() => {
+    const top = document.querySelector(".scapproach__top");
+    const topTitle = top?.querySelector(".title");
+    const topPara = top?.querySelector(".para");
+    const middle = document.querySelector(".scapproach__middle");
+    const middleContent = middle?.querySelector(
+      ".scapproach__middle-content"
+    );
+    [topTitle, topPara, middleContent].forEach((child) => {
+      setSplitText((prev) => [...prev, SplitText.create(child as HTMLElement)]);
+    });
+  }, []);
   useGSAP(
     () => {
-      window.addEventListener("load", () => {
-        const top = document.querySelector(".scapproach__top");
-        const topTitle = top?.querySelector(".title");
-        const topPara = top?.querySelector(".para");
-        const middle = document.querySelector(".scapproach__middle");
-        const middleContent = middle?.querySelector(
-          ".scapproach__middle-content"
-        );
-        [topTitle, topPara, middleContent].forEach((child) => {
+      if (splitText.length === 0) return;
+      const top = document.querySelector(".scapproach__top");
+      const topTitle = top?.querySelector(".title");
+      const topPara = top?.querySelector(".para");
+      const middle = document.querySelector(".scapproach__middle");
+      const middleContent = middle?.querySelector(
+        ".scapproach__middle-content"
+      );
+      [topTitle, topPara, middleContent].forEach((child, index) => {
+        gsap.set([topTitle, topPara, middleContent], {
+          overflow: "hidden",
+        });
+        gsap.from(splitText[index].lines, {
+          scrollTrigger: {
+            trigger: child as HTMLElement,
+            start: "bottom bottom",
+            end: "bottom bottom",
+          },
+          y: "100%",
+          opacity: 0,
+          ease: "power3.out",
+          duration: 1.5,
+        });
+      });
+      const bottom = document.querySelector(".scapproach__bottom");
+      const bottomItems = bottom?.querySelectorAll(".scapproach__bottom-item");
+      bottomItems?.forEach((item) => {
+        const num = item.querySelector(".num");
+        const title = item.querySelector(".content__title");
+        const para = item.querySelector(".content__para");
+        [num, title, para].forEach((child) => {
           const splitText = SplitText.create(child as HTMLElement);
-          gsap.set([topTitle, topPara, middleContent], {
+          gsap.set([num, title, para], {
             overflow: "hidden",
           });
           gsap.from(splitText.lines, {
@@ -36,37 +71,11 @@ const Approach = (props: Props) => {
             duration: 1.5,
           });
         });
-        const bottom = document.querySelector(".scapproach__bottom");
-        const bottomItems = bottom?.querySelectorAll(
-          ".scapproach__bottom-item"
-        );
-        bottomItems?.forEach((item) => {
-          const num = item.querySelector(".num");
-          const title = item.querySelector(".content__title");
-          const para = item.querySelector(".content__para");
-          [num, title, para].forEach((child) => {
-            const splitText = SplitText.create(child as HTMLElement);
-            gsap.set([num, title, para], {
-              overflow: "hidden",
-            });
-            gsap.from(splitText.lines, {
-              scrollTrigger: {
-                trigger: child as HTMLElement,
-                start: "bottom bottom",
-                end: "bottom bottom",
-              },
-              y: "100%",
-              opacity: 0,
-              ease: "power3.out",
-              duration: 1.5,
-            });
-          });
-        });
       });
     },
     {
       scope: approachRef,
-      dependencies: [approachRef, window],
+      dependencies: [approachRef, splitText],
     }
   );
   return (

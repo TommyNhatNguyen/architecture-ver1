@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.scss";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -9,44 +9,59 @@ type Props = {};
 
 const Footer = (props: Props) => {
   const footerRef = useRef<HTMLDivElement>(null);
+  const [splitText, setSplitText] = useState<SplitText[]>([]);
+  useEffect(() => {
+    const left = document.querySelector(".footer__top-left");
+    const leftTitle = left?.querySelector(".title");
+    const right = document.querySelector(".footer__top-right");
+    const sitemapItems = right?.querySelectorAll(".sitemap__item");
+    const contactLabel = right?.querySelectorAll(".contact__group-label");
+    const contactInfo = right?.querySelectorAll(".contact__group-info");
+    const bottom = document.querySelector(".footer__bottom");
+    [leftTitle, sitemapItems, contactLabel, contactInfo, bottom].forEach(
+      (child) => {
+        setSplitText((prev) => [
+          ...prev,
+          SplitText.create(child as HTMLElement),
+        ]);
+      }
+    );
+  }, []);
   useGSAP(
     () => {
-      window.addEventListener("load", () => {
-        
-        const left = document.querySelector(".footer__top-left");
-        const leftTitle = left?.querySelector(".title");
-        const right = document.querySelector(".footer__top-right");
-        const sitemapItems = right?.querySelectorAll(".sitemap__item");
-        const contactLabel = right?.querySelectorAll(".contact__group-label");
-        const contactInfo = right?.querySelectorAll(".contact__group-info");
-        const bottom = document.querySelector(".footer__bottom");
-        [leftTitle, sitemapItems, contactLabel, contactInfo, bottom].forEach(
-          (child) => {
-            const splitText = SplitText.create(child as HTMLElement);
-            gsap.set(
-              [leftTitle, sitemapItems, contactLabel, contactInfo, bottom],
-              {
-                overflow: "hidden",
-              }
-            );
-            gsap.from(splitText.lines, {
-              scrollTrigger: {
-                trigger: child as HTMLElement,
-                start: "bottom bottom",
-                end: "bottom bottom",
-              },
-              y: "100%",
-              opacity: 0,
-              ease: "power3.out",
-              duration: 1.5,
-            });
-          }
-        );
-      })
+      if (splitText.length === 0) return;
+      const left = document.querySelector(".footer__top-left");
+      const leftTitle = left?.querySelector(".title");
+      const right = document.querySelector(".footer__top-right");
+      const sitemapItems = right?.querySelectorAll(".sitemap__item");
+      const contactLabel = right?.querySelectorAll(".contact__group-label");
+      const contactInfo = right?.querySelectorAll(".contact__group-info");
+      const bottom = document.querySelector(".footer__bottom");
+      [leftTitle, sitemapItems, contactLabel, contactInfo, bottom].forEach(
+        (child, index) => {
+          gsap.set(
+            [leftTitle, sitemapItems, contactLabel, contactInfo, bottom],
+            {
+              overflow: "hidden",
+            }
+          );
+          gsap.from(splitText[index].lines, {
+            scrollTrigger: {
+              trigger: child as HTMLElement,
+              start: "bottom bottom",
+              end: "bottom bottom",
+            },
+            y: "100%",
+            opacity: 0,
+            ease: "power3.out",
+            duration: 1.5,
+          });
+        }
+      );
     },
     {
       scope: footerRef,
-      dependencies: [footerRef, window],
+      dependencies: [footerRef, splitText],
     }
   );
   return (

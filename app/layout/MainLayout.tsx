@@ -16,19 +16,19 @@ const MainLayout = ({ children }: Props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   useGSAP(
     () => {
-      window.addEventListener("load", () => {
-        ScrollSmoother.create({
-          smooth: 1,
-          effects: true,
-        });
+      ScrollSmoother.create({
+        smooth: 1,
+        effects: true,
       });
     },
     {
       scope: pageRef,
     }
   );
+
   return (
     <div id="smooth-wrapper" className="page-wrapper" ref={pageRef}>
       <div id="smooth-content">

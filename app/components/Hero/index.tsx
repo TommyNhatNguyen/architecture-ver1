@@ -10,100 +10,78 @@ import { SplitText } from "gsap/all";
 type Props = {};
 
 const Hero = (props: Props) => {
+  const [splitText, setSplitText] = useState<SplitText[]>([]);
+  const [splitTextBottom, setSplitTextBottom] = useState<SplitText[]>([]);
   const heroRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLAnchorElement>(null);
-
+  useEffect(() => {
+    const nav = gsap.utils.toArray(".nav .nav__item") as HTMLDivElement[];
+    const contact = document.querySelector(".schero__nav-contact");
+    [...nav, contact].forEach((item) => {
+      setSplitText((prev) => [...prev, SplitText.create(item)]);
+    });
+    const bottomLeft = document.querySelector(".schero__bottom-left");
+    const bottomMiddle = document.querySelector(".schero__bottom-middle");
+    const bottomRight = document.querySelector(".schero__bottom-right");
+    [bottomLeft, bottomMiddle, bottomRight].forEach((item) => {
+      setSplitTextBottom((prev) => [...prev, SplitText.create(item)]);
+    });
+  }, []);
   useGSAP(
     () => {
-      window.addEventListener("load", () => {
-        const tl = gsap.timeline({});
-        // Logo
-        const logoSplit = SplitText.create(logoRef.current);
-        const loaderRef = document.querySelector(".loader");
-        tl.from(logoSplit.lines, {
-          y: "100%",
+      if (splitText.length === 0 || splitTextBottom.length === 0) return;
+      const tl = gsap.timeline({});
+      // Logo
+      const logoSplit = SplitText.create(logoRef.current);
+      const loaderRef = document.querySelector(".loader");
+      tl.from(logoSplit.lines, {
+        y: "100%",
+        opacity: 0,
+        ease: "power3.out",
+        duration: 1.5,
+        onStart: () => {
+          document.body.classList.add("--loading");
+        },
+      });
+      tl.from(logoRef.current, {
+        top: `${(window.innerHeight - 120) / 2}px`,
+        left: "50%",
+        x: "-50%",
+        overflow: "hidden",
+        ease: "power4.inOut",
+        duration: 1.5,
+      });
+      tl.to(
+        loaderRef,
+        {
           opacity: 0,
-          ease: "power3.out",
-          duration: 1.5,
-          onStart: () => {
-            document.body.classList.add("--loading");
+          onComplete: () => {
+            document.body.classList.remove("--loading");
           },
-        });
-        tl.from(logoRef.current, {
-          top: `${(window.innerHeight - 120) / 2}px`,
-          left: "50%",
-          x: "-50%",
-          overflow: "hidden",
-          ease: "power4.inOut",
-          duration: 1.5,
-        });
-        tl.to(
-          loaderRef,
-          {
-            opacity: 0,
-            onComplete: () => {
-              document.body.classList.remove("--loading");
-            },
-          },
-          "-=0.6"
-        ).from(
-          logoRef.current,
-          {
-            color: `var(--text-color)`,
-          },
-          "<+0.1"
-        );
-        // Top
-        const nav = gsap.utils.toArray(".nav .nav__item") as HTMLDivElement[];
-        const contact = document.querySelector(".schero__nav-contact");
-        [...nav, contact].forEach((item) => {
-          const splitText = SplitText.create(item);
-          tl.from(
-            item,
-            {
-              overflow: "hidden",
-            },
-            "<"
-          );
-          tl.from(
-            splitText.lines,
-            {
-              y: "100%",
-              opacity: 0,
-              ease: "power3.out",
-              duration: 1.5,
-            },
-            "<"
-          );
-        });
-        // Bottom
-        const bottomLeft = document.querySelector(".schero__bottom-left");
-        const bottomMiddle = document.querySelector(".schero__bottom-middle");
-        const bottomRight = document.querySelector(".schero__bottom-right");
-        [bottomLeft, bottomMiddle].forEach((item) => {
-          const split = SplitText.create(item);
-          tl.from(
-            split.lines,
-            {
-              overflow: "hidden",
-            },
-            "<"
-          );
-          tl.from(
-            split.words,
-            {
-              y: "100%",
-              opacity: 0,
-              ease: "power3.out",
-              duration: 1.5,
-            },
-            "<"
-          );
-        });
+        },
+        "-=0.6"
+      ).from(
+        logoRef.current,
+        {
+          color: `var(--text-color)`,
+        },
+        "<+0.1"
+      );
+      // Top
+      const nav = gsap.utils.toArray(".nav .nav__item") as HTMLDivElement[];
+      const contact = document.querySelector(".schero__nav-contact");
+      [...nav, contact].forEach((item, index) => {
         tl.from(
-          bottomRight,
+          item,
           {
-            y: 20,
+            overflow: "hidden",
+          },
+          "<"
+        );
+        tl.from(
+          splitText[index].lines,
+          {
+            y: "100%",
             opacity: 0,
             ease: "power3.out",
             duration: 1.5,
@@ -111,10 +89,43 @@ const Hero = (props: Props) => {
           "<"
         );
       });
+      // Bottom
+      const bottomLeft = document.querySelector(".schero__bottom-left");
+      const bottomMiddle = document.querySelector(".schero__bottom-middle");
+      const bottomRight = document.querySelector(".schero__bottom-right");
+      [bottomLeft, bottomMiddle, bottomRight].forEach((item, index) => {
+        tl.from(
+          splitTextBottom[index].lines,
+          {
+            overflow: "hidden",
+          },
+          "<"
+        );
+        tl.from(
+          splitTextBottom[index].words,
+          {
+            y: "100%",
+            opacity: 0,
+            ease: "power3.out",
+            duration: 1.5,
+          },
+          "<"
+        );
+      });
+      tl.from(
+        bottomRight,
+        {
+          y: 20,
+          opacity: 0,
+          ease: "power3.out",
+          duration: 1.5,
+        },
+        "<"
+      );
     },
     {
       scope: heroRef,
-      dependencies: [heroRef, window],
+      dependencies: [heroRef, splitText, splitTextBottom],
     }
   );
   return (
