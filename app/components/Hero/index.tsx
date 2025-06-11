@@ -12,7 +12,7 @@ type Props = {};
 const Hero = (props: Props) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLAnchorElement>(null);
-  
+
   useGSAP(
     () => {
       // Set timeline
@@ -62,7 +62,6 @@ const Hero = (props: Props) => {
           item,
           {
             overflow: "hidden",
-            height: "fit-content",
           },
           "<"
         );
@@ -153,16 +152,18 @@ const Hero = (props: Props) => {
           {/* bottom */}
           <div className="schero__bottom">
             <div className="schero__bottom-left">
-              <h1 className="title">Redefining modern boarding house living</h1>
+              <h1 className="title">Where Every Moment Is a Masterpiece</h1>
             </div>
-            <div className="schero__bottom-middle">
-              <p>
-                Enjoy a stylish, fully serviced room designed for professionals,
-                who value comfort and convinience.
-              </p>
-            </div>
-            <div className="schero__bottom-right">
-              <button className="btn btn-avail">Check availability</button>
+            <div className="schero__bottom-wrapper">
+              <div className="schero__bottom-middle">
+                <p>
+                  Enjoy a stylish, fully serviced room designed for
+                  professionals, who value comfort and convinience.
+                </p>
+              </div>
+              <div className="schero__bottom-right">
+                <button className="btn btn-avail">Check availability</button>
+              </div>
             </div>
           </div>
         </div>

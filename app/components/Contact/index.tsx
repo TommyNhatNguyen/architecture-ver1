@@ -12,13 +12,14 @@ const Contact = (props: Props) => {
   useGSAP(
     () => {
       const content = document.querySelector(".sccontact__content");
-      content?.childNodes.forEach((child) => {
+      const title = content?.querySelector(".sccontact__content-title");
+      const btn = content?.querySelector(".btn");
+      [title, btn].forEach((child) => {
         const splitText = SplitText.create(child as HTMLElement);
-        gsap.set(splitText.lines, {
+        gsap.set([title, btn], {
           overflow: "hidden",
-          height: "fit-content",
         });
-        gsap.from(splitText.chars, {
+        gsap.from(splitText.lines, {
           scrollTrigger: {
             trigger: child as HTMLElement,
             start: "bottom bottom",

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useRef } from "react";
 import "./style.scss";
 import AnimateImage from "../AnimateImage";
@@ -12,32 +12,16 @@ const About = (props: Props) => {
   useGSAP(
     () => {
       const left = document.querySelector(".scabout__left");
+      const leftTitle = left?.querySelector(".scabout__left-title");
+      const leftPara = left?.querySelector(".scabout__left-para");
       const right = document.querySelector(".scabout__right");
-      left?.childNodes.forEach((child) => {
+      const rightPara = right?.querySelector(".scabout__right-para");
+      [leftTitle, leftPara, rightPara].forEach((child) => {
         const splitText = SplitText.create(child as HTMLElement);
-        gsap.set(splitText.lines, {
+        gsap.set([leftTitle, leftPara, rightPara], {
           overflow: "hidden",
-          height: "fit-content",
         });
-        gsap.from(splitText.chars, {
-          scrollTrigger: {
-            trigger: child as HTMLElement,
-            start: "bottom bottom",
-            end: "bottom bottom",
-          },
-          y: "100%",
-          opacity: 0,
-          ease: "power3.out",
-          duration: 1.5,
-        });
-      });
-      right?.childNodes.forEach((child) => {
-        const splitText = SplitText.create(child as HTMLElement);
-        gsap.set(splitText.lines, {
-          overflow: "hidden",
-          height: "fit-content",
-        });
-        gsap.from(splitText.chars, {
+        gsap.from(splitText.lines, {
           scrollTrigger: {
             trigger: child as HTMLElement,
             start: "bottom bottom",
@@ -55,7 +39,7 @@ const About = (props: Props) => {
     }
   );
   return (
-    <section id="scabout" className="scabout --ptb" ref={aboutRef}>
+    <section id="scabout" className="scabout" ref={aboutRef}>
       <div className="container">
         <div className="scabout-wrapper">
           <div className="scabout__left">

@@ -21,11 +21,13 @@ const Footer = (props: Props) => {
       [leftTitle, sitemapItems, contactLabel, contactInfo, bottom].forEach(
         (child) => {
           const splitText = SplitText.create(child as HTMLElement);
-          gsap.set(splitText.lines, {
-            overflow: "hidden",
-            height: "fit-content",
-          });
-          gsap.from(splitText.chars, {
+          gsap.set(
+            [leftTitle, sitemapItems, contactLabel, contactInfo, bottom],
+            {
+              overflow: "hidden",
+            }
+          );
+          gsap.from(splitText.lines, {
             scrollTrigger: {
               trigger: child as HTMLElement,
               start: "bottom bottom",

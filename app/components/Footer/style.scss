@@ -5,11 +5,10 @@
     justify-content: space-between;
     gap: var(--gutter);
     &-left {
-      font-size: var(--fs-h3);
-      font-family: var(--ff-nsm);
-      font-style: italic;
+      font-size: var(--fs-h1-md);
+      font-family: var(--ff-pr);
       color: var(--emphasize-color-2);
-      max-width: 40%;
+      max-width: 70%;
       flex-shrink: 0;
     }
     &-right {
@@ -27,7 +26,6 @@
             color: var(--emphasize-color);
             text-transform: uppercase;
           }
-          font-family: var(--ff-mm);
         }
       }
       .contact {
@@ -36,15 +34,12 @@
         gap: 16px;
         &__group {
           &-label {
-            font-family: var(--ff-mm);
+            font-family: var(--ff-pr);
             color: var(--emphasize-color);
             text-transform: uppercase;
           }
           &-info {
-            font-size: var(--fs-h6);
-            font-family: var(--ff-mm);
             display: block;
-            font-size: var(--fs-body);
             margin-top: 16px;
           }
         }

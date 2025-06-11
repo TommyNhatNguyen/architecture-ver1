@@ -14,131 +14,131 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Montserrat Fonts */}
+        {/* Inter Fonts */}
         <link
           rel="preload"
-          href="/fonts/Montserrat-Light.woff2"
+          href="/fonts/Inter24pt-Regular.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Montserrat-Light.woff"
+          href="/fonts/Inter24pt-Regular.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Montserrat-Bold.woff2"
+          href="/fonts/Inter24pt-Medium.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Montserrat-Bold.woff"
+          href="/fonts/Inter24pt-Medium.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Montserrat-Medium.woff2"
+          href="/fonts/Inter24pt-Bold.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Montserrat-Medium.woff"
+          href="/fonts/Inter24pt-Bold.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Montserrat-Regular.woff2"
+          href="/fonts/Inter18pt-SemiBold.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Montserrat-Regular.woff"
+          href="/fonts/Inter18pt-SemiBold.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Montserrat-SemiBold.woff2"
+          href="/fonts/Inter18pt-Thin.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/Montserrat-SemiBold.woff"
+          href="/fonts/Inter18pt-Thin.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"
         />
 
-        {/* NotoSerif Fonts */}
+        {/* Playfair Fonts */}
         <link
           rel="preload"
-          href="/fonts/NotoSerif-Bold.woff2"
+          href="/fonts/Playfair144pt-Bold.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/NotoSerif-Bold.woff"
+          href="/fonts/Playfair144pt-Bold.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/NotoSerif-Medium.woff2"
+          href="/fonts/Playfair144pt-Regular.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/NotoSerif-Medium.woff"
+          href="/fonts/Playfair144pt-Regular.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/NotoSerif-SemiBold.woff2"
+          href="/fonts/Playfair144pt-Medium.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/NotoSerif-SemiBold.woff"
+          href="/fonts/Playfair144pt-Medium.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/NotoSerif-Regular.woff2"
+          href="/fonts/Playfair144pt-SemiBold.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/NotoSerif-Regular.woff"
+          href="/fonts/Playfair144pt-SemiBold.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"

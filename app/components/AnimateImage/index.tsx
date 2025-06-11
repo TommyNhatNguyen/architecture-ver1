@@ -19,7 +19,6 @@ const AnimateImage = ({ children, className }: Props) => {
       filter: "blur(15px)",
       duration: 1.5,
       ease: "power3.out",
-      markers: true,
     });
     gsap.to(imageRef.current?.querySelector(".overlay") as HTMLElement, {
       scrollTrigger: {
@@ -31,7 +30,6 @@ const AnimateImage = ({ children, className }: Props) => {
       opacity: 0,
       duration: 1.5,
       ease: "power3.out",
-      markers: true,
     });
   }, {});
   return (

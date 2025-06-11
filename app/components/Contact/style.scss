@@ -4,8 +4,8 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--gutter);
-    padding-top: calc(var(--padding-section) * 2);
-    padding-bottom: calc(var(--padding-section) * 2);
+    padding-top: 82px;
+    padding-bottom: 82px;
     border-top: 1px solid var(--emphasize-color);
     border-bottom: 1px solid var(--emphasize-color);
   }
@@ -15,12 +15,12 @@
     justify-content: space-between;
     gap: var(--gutter);
     width: 100%;
-    font-family: var(--ff-mm);
     &-title {
-      font-size: var(--fs-h3);
+      font-size: var(--fs-h1-sm);
+      font-family: var(--ff-psb);
     }
     .btn-link {
-      font-size: var(--fs-h4);
+      font-size: var(--fs-subtitle);
     }
   }
 }

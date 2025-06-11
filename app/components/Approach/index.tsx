@@ -12,32 +12,18 @@ const Approach = (props: Props) => {
   useGSAP(
     () => {
       const top = document.querySelector(".scapproach__top");
-      top?.childNodes.forEach((child) => {
-        const splitText = SplitText.create(child as HTMLElement);
-        gsap.set(splitText.lines, {
-          overflow: "hidden",
-          height: "fit-content",
-        });
-        gsap.from(splitText.chars, {
-          scrollTrigger: {
-            trigger: child as HTMLElement,
-            start: "bottom bottom",
-            end: "bottom bottom",
-          },
-          y: "100%",
-          opacity: 0,
-          ease: "power3.out",
-          duration: 1.5,
-        });
-      });
+      const topTitle = top?.querySelector(".title");
+      const topPara = top?.querySelector(".para");
       const middle = document.querySelector(".scapproach__middle");
-      middle?.childNodes.forEach((child) => {
+      const middleContent = middle?.querySelector(
+        ".scapproach__middle-content"
+      );
+      [topTitle, topPara, middleContent].forEach((child) => {
         const splitText = SplitText.create(child as HTMLElement);
-        gsap.set(splitText.lines, {
+        gsap.set([topTitle, topPara, middleContent], {
           overflow: "hidden",
-          height: "fit-content",
         });
-        gsap.from(splitText.chars, {
+        gsap.from(splitText.lines, {
           scrollTrigger: {
             trigger: child as HTMLElement,
             start: "bottom bottom",
@@ -57,11 +43,10 @@ const Approach = (props: Props) => {
         const para = item.querySelector(".content__para");
         [num, title, para].forEach((child) => {
           const splitText = SplitText.create(child as HTMLElement);
-          gsap.set(splitText.lines, {
+          gsap.set([num, title, para], {
             overflow: "hidden",
-            height: "fit-content",
           });
-          gsap.from(splitText.chars, {
+          gsap.from(splitText.lines, {
             scrollTrigger: {
               trigger: child as HTMLElement,
               start: "bottom bottom",
@@ -85,16 +70,10 @@ const Approach = (props: Props) => {
         <div className="scapproach__top">
           {/* Content */}
           <div className="scapproach__top-content">
-            <h2 className="title">Our approach</h2>
+            <h2 className="title">Passion in Every Detail</h2>
             <p className="para">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Dignissimos placeat illum nisi facere explicabo culpa, officia
-              unde, minus facilis iusto, doloribus eos quidem asperiores
-              distinctio voluptatum laborum sint vel. Natus! Lorem ipsum dolor
-              sit amet consectetur adipisicing elit. Earum, ratione pariatur
-              perferendis dolorum, consectetur veniam deleniti illum similique
-              hic sequi laborum mollitia autem amet possimus illo, architecto
-              enim explicabo inventore.
+              We don't just design spaces; we craft bespoke living experiences,
+              where refined aesthetics meet unparalleled comfort.
             </p>
           </div>
           {/* Thumbnail */}
