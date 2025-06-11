@@ -11,38 +11,42 @@ const Footer = (props: Props) => {
   const footerRef = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
-      const left = document.querySelector(".footer__top-left");
-      const leftTitle = left?.querySelector(".title");
-      const right = document.querySelector(".footer__top-right");
-      const sitemapItems = right?.querySelectorAll(".sitemap__item");
-      const contactLabel = right?.querySelectorAll(".contact__group-label");
-      const contactInfo = right?.querySelectorAll(".contact__group-info");
-      const bottom = document.querySelector(".footer__bottom");
-      [leftTitle, sitemapItems, contactLabel, contactInfo, bottom].forEach(
-        (child) => {
-          const splitText = SplitText.create(child as HTMLElement);
-          gsap.set(
-            [leftTitle, sitemapItems, contactLabel, contactInfo, bottom],
-            {
-              overflow: "hidden",
-            }
-          );
-          gsap.from(splitText.lines, {
-            scrollTrigger: {
-              trigger: child as HTMLElement,
-              start: "bottom bottom",
-              end: "bottom bottom",
-            },
-            y: "100%",
-            opacity: 0,
-            ease: "power3.out",
-            duration: 1.5,
-          });
-        }
-      );
+      window.addEventListener("load", () => {
+        
+        const left = document.querySelector(".footer__top-left");
+        const leftTitle = left?.querySelector(".title");
+        const right = document.querySelector(".footer__top-right");
+        const sitemapItems = right?.querySelectorAll(".sitemap__item");
+        const contactLabel = right?.querySelectorAll(".contact__group-label");
+        const contactInfo = right?.querySelectorAll(".contact__group-info");
+        const bottom = document.querySelector(".footer__bottom");
+        [leftTitle, sitemapItems, contactLabel, contactInfo, bottom].forEach(
+          (child) => {
+            const splitText = SplitText.create(child as HTMLElement);
+            gsap.set(
+              [leftTitle, sitemapItems, contactLabel, contactInfo, bottom],
+              {
+                overflow: "hidden",
+              }
+            );
+            gsap.from(splitText.lines, {
+              scrollTrigger: {
+                trigger: child as HTMLElement,
+                start: "bottom bottom",
+                end: "bottom bottom",
+              },
+              y: "100%",
+              opacity: 0,
+              ease: "power3.out",
+              duration: 1.5,
+            });
+          }
+        );
+      })
     },
     {
       scope: footerRef,
+      dependencies: [footerRef, window],
     }
   );
   return (

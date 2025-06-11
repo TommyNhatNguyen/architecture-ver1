@@ -18,9 +18,11 @@ const MainLayout = ({ children }: Props) => {
   }, []);
   useGSAP(
     () => {
-      ScrollSmoother.create({
-        smooth: 1,
-        effects: true,
+      window.addEventListener("load", () => {
+        ScrollSmoother.create({
+          smooth: 1,
+          effects: true,
+        });
       });
     },
     {

@@ -11,29 +11,32 @@ const Contact = (props: Props) => {
   const contactRef = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
-      const content = document.querySelector(".sccontact__content");
-      const title = content?.querySelector(".sccontact__content-title");
-      const btn = content?.querySelector(".btn");
-      [title, btn].forEach((child) => {
-        const splitText = SplitText.create(child as HTMLElement);
-        gsap.set([title, btn], {
-          overflow: "hidden",
-        });
-        gsap.from(splitText.lines, {
-          scrollTrigger: {
-            trigger: child as HTMLElement,
-            start: "bottom bottom",
-            end: "bottom bottom",
-          },
-          y: "100%",
-          opacity: 0,
-          ease: "power3.out",
-          duration: 1.5,
+      window.addEventListener("load", () => {
+        const content = document.querySelector(".sccontact__content");
+        const title = content?.querySelector(".sccontact__content-title");
+        const btn = content?.querySelector(".btn");
+        [title, btn].forEach((child) => {
+          const splitText = SplitText.create(child as HTMLElement);
+          gsap.set([title, btn], {
+            overflow: "hidden",
+          });
+          gsap.from(splitText.lines, {
+            scrollTrigger: {
+              trigger: child as HTMLElement,
+              start: "bottom bottom",
+              end: "bottom bottom",
+            },
+            y: "100%",
+            opacity: 0,
+            ease: "power3.out",
+            duration: 1.5,
+          });
         });
       });
     },
     {
       scope: contactRef,
+      dependencies: [contactRef, window],
     }
   );
   return (

@@ -11,31 +11,34 @@ const About = (props: Props) => {
   const aboutRef = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
-      const left = document.querySelector(".scabout__left");
-      const leftTitle = left?.querySelector(".scabout__left-title");
-      const leftPara = left?.querySelector(".scabout__left-para");
-      const right = document.querySelector(".scabout__right");
-      const rightPara = right?.querySelector(".scabout__right-para");
-      [leftTitle, leftPara, rightPara].forEach((child) => {
-        const splitText = SplitText.create(child as HTMLElement);
-        gsap.set([leftTitle, leftPara, rightPara], {
-          overflow: "hidden",
-        });
-        gsap.from(splitText.lines, {
-          scrollTrigger: {
-            trigger: child as HTMLElement,
-            start: "bottom bottom",
-            end: "bottom bottom",
-          },
-          y: "100%",
-          opacity: 0,
-          ease: "power3.out",
-          duration: 1.5,
+      window.addEventListener("load", () => {
+        const left = document.querySelector(".scabout__left");
+        const leftTitle = left?.querySelector(".scabout__left-title");
+        const leftPara = left?.querySelector(".scabout__left-para");
+        const right = document.querySelector(".scabout__right");
+        const rightPara = right?.querySelector(".scabout__right-para");
+        [leftTitle, leftPara, rightPara].forEach((child) => {
+          const splitText = SplitText.create(child as HTMLElement);
+          gsap.set([leftTitle, leftPara, rightPara], {
+            overflow: "hidden",
+          });
+          gsap.from(splitText.lines, {
+            scrollTrigger: {
+              trigger: child as HTMLElement,
+              start: "bottom bottom",
+              end: "bottom bottom",
+            },
+            y: "100%",
+            opacity: 0,
+            ease: "power3.out",
+            duration: 1.5,
+          });
         });
       });
     },
     {
       scope: aboutRef,
+      dependencies: [aboutRef, window],
     }
   );
   return (
